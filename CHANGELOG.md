@@ -4,6 +4,21 @@ All notable changes to MolFrame are recorded here. The project follows
 [Semantic Versioning](https://semver.org/); before 1.0 a minor release may
 change the public API.
 
+## 0.8.0 — unreleased
+
+- **Partner-omitted surface patches.** `molframe.surface.surface_points_excluding_pairs(
+  coordinates, radii, pairs, *, probe=1.4, density=4.0)` returns the points of each
+  atom's probe-grown ball that are exposed only when one named partner is omitted from
+  the occlusion test. The result, `ExcludedSurfacePoints`, carries positions, owning
+  atom, omitted partner and the area each sample represents. This is the Rust kernel
+  `molframe_surface::surface_points_excluding_pairs`, exposed one-to-one.
+- **Pairwise contact areas.** `molframe.surface.atom_contact_areas(coordinates, radii, *,
+  probe=1.4, density=4.0)` returns the mean of the two directed buried patches of every
+  candidate atom pair, as `AtomContactAreas`. Rust: `molframe_surface::atom_contact_areas`.
+- **Invalid pairs are refused.** A pair that names one atom twice, or an atom outside the
+  structure, is a `SasaError::InvalidPair` (diagnostic `E5101`), where the kernel previously
+  skipped it silently.
+
 ## 0.7.0 — unreleased
 
 - **Selections from data.** `Selection.from_indices(structure, indices)` and
