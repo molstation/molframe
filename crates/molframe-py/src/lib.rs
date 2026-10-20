@@ -99,6 +99,7 @@ mod structure_data;
 #[cfg(feature = "surface")]
 mod surface;
 #[cfg(feature = "surface")]
+mod surface_exclusion;
 mod surface_mesh;
 #[cfg(feature = "surface")]
 mod surface_native;

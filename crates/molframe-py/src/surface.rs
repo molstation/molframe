@@ -365,5 +365,6 @@ pub(crate) fn register(module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add_class::<PySurfacePoints>()?;
     module.add_class::<PyBuriedSurface>()?;
     crate::surface_native::register(module)?;
+    crate::surface_exclusion::register(module)?;
     crate::surface_mesh::register(module)
 }

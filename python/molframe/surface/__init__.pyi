@@ -59,6 +59,76 @@ class BuriedSurface:
     def buried(self) -> float:
         """``first_alone + second_alone - together``."""
 
+class ExcludedSurfacePoints:
+    """Atom-ball surface points exposed when one partner is omitted from the occlusion test."""
+
+    def __len__(self) -> int: ...
+    @property
+    def positions(self) -> Float32Array:
+        """Point positions on the probe-grown ball, ``(n, 3)``."""
+    @property
+    def atoms(self) -> UInt64Array:
+        """The atom carrying each point."""
+    @property
+    def excluded(self) -> UInt64Array:
+        """The partner omitted from the accessibility test for each point."""
+    @property
+    def areas(self) -> Float64Array:
+        """Surface area each sample represents, in square ångström."""
+
+def partner_covered_points(
+    coordinates: Array,
+    radii: Array,
+    owners: Array,
+    partners: Array,
+    *,
+    probe: float = 1.4,
+    density: float = 4.0,
+    context: ExecutionContext | None = None,
+) -> ExcludedSurfacePoints:
+    """Points on each owner's probe-grown ball that the partner group covers and nothing else hides.
+
+    ``owners`` and ``partners`` are one-dimensional atom-index arrays, each atom in at most one
+    group. A sample is kept when it lies inside a partner's grown sphere and inside no other
+    atom's grown sphere. Each sample records its owner and its nearest covering partner.
+    """
+
+class AtomContactAreas:
+    """Solvent-excluded contact area for each unordered atom pair."""
+
+    def __len__(self) -> int: ...
+    @property
+    def first(self) -> UInt64Array: ...
+    @property
+    def second(self) -> UInt64Array: ...
+    @property
+    def area(self) -> Float64Array:
+        """Mean of the two directed buried patch areas, in square ångström."""
+
+def surface_points_excluding_pairs(
+    coordinates: Array,
+    radii: Array,
+    pairs: Array,
+    *,
+    probe: float = 1.4,
+    density: float = 4.0,
+    context: ExecutionContext | None = None,
+) -> ExcludedSurfacePoints:
+    """Points exposed on each atom's ball when its partner is omitted from occlusion.
+
+    ``pairs`` is an ``(m, 2)`` array of atom indices. Each unordered pair contributes points
+    from both atoms, each omitting the other.
+    """
+def atom_contact_areas(
+    coordinates: Array,
+    radii: Array,
+    *,
+    probe: float = 1.4,
+    density: float = 4.0,
+    context: ExecutionContext | None = None,
+) -> AtomContactAreas:
+    """Solvent-excluded contact area for every candidate atom pair of the structure."""
+
 class Curvatures:
     """Curvature descriptors at every vertex of a mesh."""
 
