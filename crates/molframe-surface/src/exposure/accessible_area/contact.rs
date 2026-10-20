@@ -33,6 +33,20 @@ pub struct AtomContactArea {
 
 /// Constructs all atom-pair contact areas from probe-grown surface patches.
 ///
+/// # Examples
+///
+/// ```
+/// use molframe_core::ExecutionContext;
+/// use molframe_surface::atom_contact_areas;
+///
+/// // Two equal atoms 3 Å apart share a cap on each: one candidate pair, positive area.
+/// let positions = [[0.0_f32, 0.0, 0.0], [3.0, 0.0, 0.0]];
+/// let areas = atom_contact_areas(&positions, &[1.7, 1.7], 1.4, 50.0, &ExecutionContext::default())?;
+/// assert_eq!(areas.len(), 1);
+/// assert!(areas[0].area > 0.0);
+/// # Ok::<(), molframe_surface::SasaError>(())
+/// ```
+///
 /// # Errors
 ///
 /// Returns invalid geometry or sampling controls.
@@ -93,9 +107,28 @@ fn atom_contact_area(
 
 /// Samples each candidate pair while omitting the partner from occlusion.
 ///
+/// Each named pair contributes the samples of both atoms that their partner covers and no other
+/// atom hides. For one partner per pair, see [`partner_covered_points`] for the group form.
+///
+/// # Examples
+///
+/// ```
+/// use molframe_core::ExecutionContext;
+/// use molframe_surface::surface_points_excluding_pairs;
+///
+/// let positions = [[0.0_f32, 0.0, 0.0], [3.0, 0.0, 0.0]];
+/// let points = surface_points_excluding_pairs(
+///     &positions, &[1.7, 1.7], 1.4, 50.0, &[(0, 1)], &ExecutionContext::default(),
+/// )?;
+/// assert!(points.iter().any(|point| point.atom == 0 && point.excluded == 1));
+/// assert!(points.iter().any(|point| point.atom == 1 && point.excluded == 0));
+/// # Ok::<(), molframe_surface::SasaError>(())
+/// ```
+///
 /// # Errors
 ///
-/// Returns invalid geometry or sampling controls.
+/// Returns invalid geometry or sampling controls, or [`SasaError::InvalidPair`] for a pair that
+/// names one atom twice or an atom outside the structure.
 pub fn surface_points_excluding_pairs(
     positions: &[[f32; 3]],
     radii: &[f32],
@@ -111,10 +144,15 @@ pub fn surface_points_excluding_pairs(
     let mut directions = BTreeMap::new();
     let mut points = Vec::new();
     for &(first, second) in pairs {
-        if first < positions.len() && second < positions.len() && first != second {
-            sample_excluding(&hood, first, second, density, &mut directions, &mut points)?;
-            sample_excluding(&hood, second, first, density, &mut directions, &mut points)?;
+        if first >= positions.len() || second >= positions.len() || first == second {
+            return Err(SasaError::InvalidPair {
+                first,
+                second,
+                atoms: positions.len(),
+            });
         }
+        sample_excluding(&hood, first, second, density, &mut directions, &mut points)?;
+        sample_excluding(&hood, second, first, density, &mut directions, &mut points)?;
     }
     Ok(points)
 }
@@ -164,3 +202,7 @@ fn point_inside(point: [f64; 3], centre: [f64; 3], radius_squared: f64) -> bool 
         .sum::<f64>()
         <= radius_squared
 }
+
+#[cfg(test)]
+#[path = "contact_tests.rs"]
+mod tests;

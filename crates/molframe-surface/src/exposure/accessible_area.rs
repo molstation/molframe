@@ -25,6 +25,8 @@ mod contact;
 pub use contact::{
     AtomContactArea, ExcludedSurfacePoint, atom_contact_areas, surface_points_excluding_pairs,
 };
+mod partner;
+pub use partner::partner_covered_points;
 
 /// Why a solvent-accessible surface could not be computed.
 #[derive(Debug, thiserror::Error)]
@@ -55,6 +57,25 @@ pub enum SasaError {
     /// No test points were requested, so no area could be sampled.
     #[error("at least one test point is required")]
     NoPoints,
+    /// A partner group names an atom outside the structure, repeats one, or puts one atom in
+    /// both the owner and the partner group.
+    #[error("atom {atom} must belong to one group once, within the {atoms} supplied")]
+    InvalidGroup {
+        /// The rejected atom index.
+        atom: usize,
+        /// How many atoms were supplied.
+        atoms: usize,
+    },
+    /// A requested atom pair names an atom outside the structure, or the same atom twice.
+    #[error("pair ({first}, {second}) must name two distinct atoms of the {atoms} supplied")]
+    InvalidPair {
+        /// The first atom index of the rejected pair.
+        first: usize,
+        /// The second atom index of the rejected pair.
+        second: usize,
+        /// How many atoms were supplied.
+        atoms: usize,
+    },
     /// Grid resolution or allocation ceiling is invalid.
     #[error("grid resolution must be positive and finite and max_cells must be non-zero")]
     InvalidGridOptions,

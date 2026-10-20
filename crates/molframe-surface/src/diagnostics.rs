@@ -13,6 +13,8 @@ diagnostic_from!(SasaError, |error| match error {
     | SasaError::NonFinitePosition { .. }
     | SasaError::InvalidDensity
     | SasaError::NoPoints
+    | SasaError::InvalidPair { .. }
+    | SasaError::InvalidGroup { .. }
     | SasaError::InvalidGridOptions => Code::E5101,
     SasaError::GridTooLarge { .. }
     | SasaError::GridDimensionsOverflow

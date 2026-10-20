@@ -84,6 +84,53 @@ impl Neighbourhood<'_> {
 
         true
     }
+
+    /// Classifies a point on `atom`'s grown sphere against a partner group.
+    ///
+    /// `partner` flags the partner atoms by index. A partner covers the point when the point
+    /// lies inside its grown sphere, and the nearest covering partner is reported. Any other
+    /// neighbour whose grown sphere contains the point blocks it, because the partner group is
+    /// then not the only thing that hides that position from solvent.
+    ///
+    /// Distances are compared squared; no square root is taken per neighbour.
+    pub(crate) fn classify_against_partners(
+        &self,
+        point: [f64; 3],
+        atom: usize,
+        partner: &[bool],
+    ) -> Coverage {
+        let mut nearest: Option<(f64, usize)> = None;
+        for &neighbour in self.adjacency.row(atom) {
+            let other = neighbour as usize;
+            let centre = self.centre(other);
+            if !point_inside_sphere(point, centre, self.expanded_squared[other]) {
+                continue;
+            }
+            if !partner.get(other).copied().unwrap_or(false) {
+                return Coverage::Blocked;
+            }
+            let distance = squared_distance(point, centre);
+            if nearest.is_none_or(|(best, _)| distance < best) {
+                nearest = Some((distance, other));
+            }
+        }
+        match nearest {
+            Some((_, covering)) => Coverage::Covered(covering),
+            None => Coverage::Uncovered,
+        }
+    }
+}
+
+/// How one probe-centre candidate on an atom's grown sphere relates to a partner group.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Coverage {
+    /// Inside a neighbour outside the partner group: the point is solvent-side of the
+    /// environment, so the partner group cannot be what buries it.
+    Blocked,
+    /// No neighbour blocks the point, and no partner covers it.
+    Uncovered,
+    /// Covered by partner `atom`, the nearest partner whose grown sphere contains the point.
+    Covered(usize),
 }
 
 /// Validates the input and builds the shared neighbourhood.

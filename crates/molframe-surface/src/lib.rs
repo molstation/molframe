@@ -32,7 +32,8 @@ use shape::{cavity_geometry, components, local_shape, mesh_diagnostics, triangul
 
 pub use accessible_area::{
     AtomContactArea, ExcludedSurfacePoint, SasaError, SurfacePoint, atom_contact_areas,
-    shrake_rupley, surface_points, surface_points_at_density, surface_points_excluding_pairs,
+    partner_covered_points, shrake_rupley, surface_points, surface_points_at_density,
+    surface_points_excluding_pairs,
 };
 pub use burial::{
     BuriedSurface, BuriedSurfaceError, MoleculeRole, MoleculeRoleError,
