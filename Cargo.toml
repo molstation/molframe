@@ -14,7 +14,7 @@ rust-version = "1.98.1"
 # which `crates/molframe-chem/data/LICENSE.mendeleev` and its spglib sibling are
 # deliberately *not* — those are third-party notices, not this package's terms.
 license = "MIT"
-repository = "https://github.com/miguelcsx/molframe"
+repository = "https://github.com/molstation/molframe"
 description = "A batteries-included structural bioinformatics engine"
 
 [workspace.dependencies]

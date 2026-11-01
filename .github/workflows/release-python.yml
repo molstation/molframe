@@ -8,7 +8,7 @@
 #
 # Authentication is OIDC via PyPI's trusted publisher, so no token is stored
 # here. Configure it at https://pypi.org/manage/project/molframe/settings/publishing/
-# with owner `miguelcsx`, repository `molframe`, workflow `release-python.yml`
+# with owner `molstation`, repository `molframe`, workflow `release-python.yml`
 # and environment `release`.
 #
 # `molframe-py` is `publish = false` in Cargo: it is a `cdylib` for the

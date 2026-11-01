@@ -1,7 +1,7 @@
 <div align="center">
 
 # MolFrame
-[Documentation](https://miguelcsx.github.io/molframe/) · [GitHub](https://github.com/miguelcsx/molframe)
+[Documentation](https://molstation.github.io/molframe/) · [GitHub](https://github.com/molstation/molframe)
 **High-performance structural bioinformatics for Python and Rust.**
 
 Read, transform, analyze, and compare molecular structures through a single semantics-preserving data model.
@@ -425,7 +425,7 @@ MolFrame is designed to integrate with the Python scientific ecosystem rather th
 A query is a short sentence that picks atoms: `resname HEM`, `protein and
 chain A`, `byres (within 5 of resname HEM) and protein`. The complete language,
 with every keyword, column and operator, is in the
-**[query language reference](https://miguelcsx.github.io/molframe/docs/query-language/)**.
+**[query language reference](https://molstation.github.io/molframe/docs/query-language/)**.
 
 ```python
 import molframe
@@ -752,17 +752,17 @@ cargo test --workspace
 
 The repository also contains project-specific verification tooling for formatting, linting, packaging, bindings, scientific fixtures, and reproducibility checks.
 
-See [`CONTRIBUTING.md`](https://github.com/miguelcsx/molframe/blob/main/CONTRIBUTING.md) for the development workflow.
+See [`CONTRIBUTING.md`](https://github.com/molstation/molframe/blob/main/CONTRIBUTING.md) for the development workflow.
 
 ## Citation
 
 If MolFrame contributes to published research, please cite the software.
 
-Machine-readable citation metadata is provided in [`CITATION.cff`](https://github.com/miguelcsx/molframe/blob/main/CITATION.cff).
+Machine-readable citation metadata is provided in [`CITATION.cff`](https://github.com/molstation/molframe/blob/main/CITATION.cff).
 
 ## License
 
-MolFrame is released under the [MIT License](https://github.com/miguelcsx/molframe/blob/main/LICENSE).
+MolFrame is released under the [MIT License](https://github.com/molstation/molframe/blob/main/LICENSE).
 
 The bundled reference data keeps the licence of its upstream source, carried
 beside the data it covers: mendeleev's MIT notice in

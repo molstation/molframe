@@ -37,7 +37,7 @@ from pathlib import Path
 INDEX = "https://index.crates.io"
 DOWNLOAD = "https://static.crates.io/crates"
 # crates.io asks that automated clients identify themselves.
-HEADERS = {"User-Agent": "molframe-release-workflow (github.com/miguelcsx/molframe)"}
+HEADERS = {"User-Agent": "molframe-release-workflow (github.com/molstation/molframe)"}
 
 # How long to wait for a just-published crate to appear in the index. A upload
 # is not instant, and the crates that depend on it cannot be packaged until it

@@ -6,8 +6,8 @@ PyPI credential.
 
 | Workflow | Registry | Trusted publisher |
 |---|---|---|
-| `.github/workflows/release.yml` | crates.io | owner `miguelcsx`, repo `molframe`, workflow `release.yml`, environment `release` |
-| `.github/workflows/release-python.yml` | PyPI | owner `miguelcsx`, repo `molframe`, workflow `release-python.yml`, environment `release` |
+| `.github/workflows/release.yml` | crates.io | owner `molstation`, repo `molframe`, workflow `release.yml`, environment `release` |
+| `.github/workflows/release-python.yml` | PyPI | owner `molstation`, repo `molframe`, workflow `release-python.yml`, environment `release` |
 
 Both require a GitHub environment named `release`. Add it under **Settings →
 Environments**, and require a reviewer on it if a human should approve every

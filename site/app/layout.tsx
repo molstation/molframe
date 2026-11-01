@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: { default: 'MolFrame documentation', template: '%s | MolFrame' },
   description: 'Practical structural bioinformatics for Python and Rust.',
-  metadataBase: new URL('https://miguelcsx.github.io/molframe/'),
+  metadataBase: new URL('https://molstation.github.io/molframe/'),
 };
 
 export default function Layout({ children }: LayoutProps<'/'>) {

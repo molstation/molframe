@@ -17,5 +17,5 @@ keywords:
   - "Rust"
   - "NumPy"
 license: "MIT"
-repository-code: "https://github.com/miguelcsx/molframe"
+repository-code: "https://github.com/molstation/molframe"
 date-released: "2026-10-01"

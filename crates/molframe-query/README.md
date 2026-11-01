@@ -6,7 +6,7 @@ structure. Every example here runs against haemoglobin, PDB [4HHB](https://www.r
 
 The complete language -- every keyword, column, operator and distance form,
 named queries, and what each error means -- is in the
-**[query language reference](https://miguelcsx.github.io/molframe/docs/query-language/)**.
+**[query language reference](https://molstation.github.io/molframe/docs/query-language/)**.
 
 ## Run a query
 
@@ -122,7 +122,7 @@ Keywords are case-insensitive (`PROTEIN`, `Resname`). Values are case-sensitive
 Everything else -- the full keyword and column tables, ranges, wildcards,
 distance forms, `byres` and `same ... as`, named queries, errors and warnings,
 and keywords that need extra data -- is in the
-[query language reference](https://miguelcsx.github.io/molframe/docs/query-language/).
+[query language reference](https://molstation.github.io/molframe/docs/query-language/).
 
 Hydrogen polarity reads the full bond topology: any N/O/S neighbour makes an
 explicit hydrogen polar, even after a hydrogen-only filter. All other hydrogen

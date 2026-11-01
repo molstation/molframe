@@ -34,10 +34,10 @@ license = "MIT"
 license-files = ["LICENSE"]
 
 [project.urls]
-Homepage = "https://github.com/miguelcsx/molframe"
-Repository = "https://github.com/miguelcsx/molframe"
-Issues = "https://github.com/miguelcsx/molframe/issues"
-Documentation = "https://miguelcsx.github.io/molframe/"
+Homepage = "https://github.com/molstation/molframe"
+Repository = "https://github.com/molstation/molframe"
+Issues = "https://github.com/molstation/molframe/issues"
+Documentation = "https://molstation.github.io/molframe/"
 
 [dependency-groups]
 dev = [
